@@ -22,6 +22,7 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.TopDocs;
@@ -56,14 +57,12 @@ public class UpdateDocument {
         TopDocs td = searcher.search(parser.parse("fox"), 1000);
         assertThat(td.totalHits, is(1));
 
-        writer.deleteDocuments(parser.parse("id:001"));
-
         Document doc2 = new Document();
         doc.add(new Field("id", "001",
                 Field.Store.YES, Field.Index.NOT_ANALYZED));
         doc2.add(new Field("str_field", "quick brown fox jumped over the lazy whale.",
                 Field.Store.YES, Field.Index.ANALYZED));
-        writer.addDocument(doc2);
+        writer.updateDocument(new Term("id", "001"),doc2);
         writer.commit();
 
         searcher.close();
