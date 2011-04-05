@@ -1,0 +1,12 @@
+target
+*.iml
+*.ipr
+*.gif
+*.iws
+*.jpg
+.DS_Store
+~$*
+.classpath
+.project
+.settings
+reports/*
