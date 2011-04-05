@@ -16,7 +16,6 @@
 package luceneexamples;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.WhitespaceAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -47,7 +46,7 @@ public class IndexAndSearch {
                 Field.Store.YES, Field.Index.ANALYZED));
         writer.addDocument(doc);
         Document doc2 = new Document();
-        doc.add(new Field("str_field", "貴社の記者が汽車で帰社した",
+        doc2.add(new Field("str_field", "貴社の記者が汽車で帰社した",
                 Field.Store.YES, Field.Index.ANALYZED));
         writer.addDocument(doc2);
         writer.close();

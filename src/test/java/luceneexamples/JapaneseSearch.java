@@ -16,57 +16,46 @@
 package luceneexamples;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.analysis.cjk.CJKAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
-import org.apache.lucene.document.NumericField;
-import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.MatchAllDocsQuery;
-import org.apache.lucene.search.Sort;
-import org.apache.lucene.search.SortField;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-public class NumericFieldDocument {
+public class JapaneseSearch {
     @Test
     public void index() throws Exception {
         RAMDirectory directory = new RAMDirectory();
-        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_31);
+        Analyzer analyzer = new CJKAnalyzer(Version.LUCENE_31);
+
         IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_31, analyzer);
         IndexWriter writer = new IndexWriter(directory, iwc);
 
-        for (int i = 8; i < 12; i++) {
-            Document doc = new Document();
-            doc.add(new NumericField("int_field", Field.Store.YES, true).setIntValue(i));
-            System.out.println(doc);
-            writer.addDocument(doc);
-        }
-        writer.commit();
-
-        IndexReader reader = IndexReader.open(writer, true);
-        IndexSearcher searcher = new IndexSearcher(reader);
-        TopDocs td = searcher.search(new MatchAllDocsQuery()
-                , 1000, new Sort(new SortField("int_field", SortField.INT)));
-        assertThat(td.totalHits, is(4));
-        assertThat(searcher.doc(td.scoreDocs[0].doc).get("int_field"), equalTo("8"));
-        assertThat(searcher.doc(td.scoreDocs[1].doc).get("int_field"), equalTo("9"));
-        assertThat(searcher.doc(td.scoreDocs[2].doc).get("int_field"), equalTo("10"));
-        assertThat(searcher.doc(td.scoreDocs[3].doc).get("int_field"), equalTo("11"));
-
-        reader.close();
+        Document doc = new Document();
+        doc.add(new Field("str_field", "quick brown fox jumped over the lazy dog.",
+                Field.Store.YES, Field.Index.ANALYZED));
+        writer.addDocument(doc);
+        Document doc2 = new Document();
+        doc2.add(new Field("str_field", "貴社の記者が汽車で帰社した",
+                Field.Store.YES, Field.Index.ANALYZED));
+        writer.addDocument(doc2);
         writer.close();
+        IndexSearcher searcher = new IndexSearcher(directory, true);
+        QueryParser parser = new QueryParser(Version.LUCENE_31, "str_field", analyzer);
+        TopDocs td = searcher.search(parser.parse("記者"), 1000);
+        assertThat(td.totalHits, is(1));
         searcher.close();
         directory.close();
     }
