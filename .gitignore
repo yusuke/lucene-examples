@@ -1,4 +1,7 @@
 target
+cjkindex
+gosenindex
+dictionary
 *.iml
 *.ipr
 *.gif

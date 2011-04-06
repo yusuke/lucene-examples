@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<analyzer>
+  <!-- specify gosen tokenizer class -->
+  <tokenizerClass>com.github.lucenejapaneseanalyzer.japaneseanalyzer.GoSenTokenizer</tokenizerClass>
+  
+  <!-- specify  sen tokenizer class
+  <tokenizerClass>org.apache.lucene.analysis.ja.sen.SenTokenizer</tokenizerClass>
+   -->
+  <!--
+  // use this class for chasen
+  <tokenizerClass>org.apache.lucene.analysis.ja.chasen.ChasenTokenizer</tokenizerClass> 
+  -->
+
+    <!--
+    #
+    # Stop word list
+    #
+    # An array containing some common English & Japanese words that
+    # are usually not useful for searching.
+    #
+    # Japanese stop words is based on GAEA:
+    # http://galaga.jaist.ac.jp:8000/pub/tools/GAEA/manual.html
+    -->
+  <stop>
+    <letters><![CDATA[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}]]></letters>
+    <word>a</word>
+    <word>and</word>
+    <word>are</word>
+    <word>as</word>
+    <word>at</word>
+    <word>be</word>
+    <word>but</word>
+    <word>by</word>
+    <word>for</word>
+    <word>if</word>
+    <word>in</word>
+    <word>into</word>
+    <word>is</word>
+    <word>it</word>
+    <word>no</word>
+    <word>not</word>
+    <word>of</word>
+    <word>on</word>
+    <word>or</word>
+    <word>s</word>
+    <word>such</word>
+    <word>t</word>
+    <word>that</word>
+    <word>the</word>
+    <word>their</word>
+    <word>then</word>
+    <word>there</word>
+    <word>these</word>
+    <word>they</word>
+    <word>this</word>
+    <word>to</word>
+    <word>was</word>
+    <word>will</word>
+    <word>with</word>
+    <word>いう</word>
+    <word>する</word>
+    <word>人物</word>
+    <word>さま</word>
+    <word>すること</word>
+    <word>ため</word>
+    <word>もの</word>
+    <word>おいて</word>
+    <word>なる</word>
+    <word>できる</word>
+    <word>おく</word>
+    <word>ある</word>
+  </stop>
+
+  <!--
+  #
+  # Parts of speech list which are used in indexing.
+  #
+  # Note: These pos depend on chasen & IPA dictionary.
+  -->
+  <accept>
+    <pos>名詞</pos>
+    <pos>名詞-一般</pos>
+    <pos>名詞-固有名詞</pos>
+    <pos>名詞-固有名詞-一般</pos>
+    <pos>名詞-固有名詞-人名</pos>
+    <pos>名詞-固有名詞-人名-一般</pos>
+    <pos>名詞-固有名詞-人名-姓</pos>
+    <pos>名詞-固有名詞-人名-名</pos>
+    <pos>名詞-固有名詞-組織</pos>
+    <pos>名詞-固有名詞-地域</pos>
+    <pos>名詞-固有名詞-地域-一般</pos>
+    <pos>名詞-固有名詞-地域-国</pos>
+    <pos>名詞-代名詞</pos>
+    <pos>名詞-代名詞-一般</pos>
+    <pos>名詞-代名詞-縮約</pos>
+    <pos>名詞-副詞可能</pos>
+    <pos>名詞-サ変接続</pos>
+    <pos>名詞-形容動詞語幹</pos>
+    <pos>名詞-数</pos>
+    <pos>名詞-非自立</pos>
+    <pos>名詞-非自立-一般</pos>
+    <pos>名詞-非自立-副詞可能</pos>
+    <pos>名詞-非自立-助動詞語幹</pos>
+    <pos>名詞-非自立-形容動詞語幹</pos>
+    <pos>名詞-特殊</pos>
+    <pos>名詞-特殊-助動詞語幹</pos>
+    <pos>名詞-接尾</pos>
+    <pos>名詞-接尾-一般</pos>
+    <pos>名詞-接尾-人名</pos>
+    <pos>名詞-接尾-地域</pos>
+    <pos>名詞-接尾-サ変接続</pos>
+    <pos>名詞-接尾-助動詞語幹</pos>
+    <pos>名詞-接尾-形容動詞語幹</pos>
+    <pos>名詞-接尾-副詞可能</pos>
+    <pos>名詞-接尾-助数詞</pos>
+    <pos>名詞-接尾-特殊</pos>
+    <pos>名詞-接続詞的</pos>
+    <pos>名詞-動詞非自立的</pos>
+    <pos>名詞-引用文字列</pos>
+    <pos>名詞-ナイ形容詞語幹</pos>
+    <pos>接頭詞</pos>
+    <pos>接頭詞-名詞接続</pos>
+    <pos>接頭詞-動詞接続</pos>
+    <pos>接頭詞-形容詞接続</pos>
+    <pos>接頭詞-数接続</pos>
+    <pos>動詞</pos>
+    <pos>動詞-自立</pos>
+    <pos>動詞-非自立</pos>
+    <pos>動詞-接尾</pos>
+    <pos>形容詞</pos>
+    <pos>形容詞-自立</pos>
+    <pos>形容詞-非自立</pos>
+    <pos>形容詞-接尾</pos>
+    <pos>副詞</pos>
+    <pos>副詞-一般</pos>
+    <pos>副詞-助詞類接続</pos>
+    <pos>連体詞</pos>
+    <pos>接続詞</pos>
+    <pos>助詞</pos>
+    <pos>助詞-格助詞</pos>
+    <pos>助詞-格助詞-一般</pos>
+    <pos>助詞-格助詞-引用</pos>
+    <pos>助詞-格助詞-連語</pos>
+    <pos>助詞-接続助詞</pos>
+    <pos>助詞-係助詞</pos>
+    <pos>助詞-副助詞</pos>
+    <pos>助詞-間投助詞</pos>
+    <pos>助詞-並立助詞</pos>
+    <pos>助詞-終助詞</pos>
+    <pos>助詞-副助詞／並立助詞／終助詞</pos>
+    <pos>助詞-連体化</pos>
+    <pos>助詞-副詞化</pos>
+    <pos>助詞-特殊</pos>
+    <pos>助動詞</pos>
+    <pos>感動詞</pos>
+    <pos>記号</pos>
+
+    <!-- <pos>記号-一般</pos> -->
+    <!-- <pos>記号-句点</pos> -->
+    <!-- <pos>記号-読点</pos> -->
+    <!-- <pos>記号-空白</pos> -->
+    <pos>記号-アルファベット</pos>
+
+    <!-- <pos>記号-括弧開</pos> -->
+    <!-- <pos>記号-括弧閉</pos> -->
+
+    <pos>その他</pos>
+    <pos>その他-間投</pos>
+    <pos>フィラー</pos>
+    <pos>非言語音</pos>
+    <pos>語断片</pos>
+    <pos>未知語</pos>
+  </accept>
+
+</analyzer>

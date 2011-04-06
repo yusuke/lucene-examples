@@ -15,8 +15,8 @@
  */
 package luceneexamples;
 
+import com.github.lucenejapaneseanalyzer.japaneseanalyzer.GoSenAnalyzer;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.cjk.CJKAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.IndexWriter;
@@ -38,12 +38,15 @@ import static org.junit.Assert.assertThat;
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-public class JapaneseSearch {
+public class GoSenSearch {
     @Test
     public void index() throws Exception {
+        System.setProperty("org.apache.lucene.ja.config.file","japanese-gosen-analyzer.xml");
+        System.setProperty("sen.home","dictionary");
+
         Directory directory = new RAMDirectory();
-//        Directory directory = FSDirectory.open(new File("cjkindex"));
-        Analyzer analyzer = new CJKAnalyzer(Version.LUCENE_31);
+//        Directory directory = FSDirectory.open(new File("gosenindex"));
+        Analyzer analyzer = new GoSenAnalyzer();
 
         IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_31, analyzer);
         IndexWriter writer = new IndexWriter(directory, iwc);
